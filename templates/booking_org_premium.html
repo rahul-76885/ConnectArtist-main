@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Booking Confirmation - ConnectArtist</title>
+    <style>
+      /* ============================================
+       PROFESSIONAL ORGANIZER BOOKING CONFIRMATION
+       Premium, Trust-Building Design
+       ============================================ */
+
+      :root {
+        --brand-primary: #00b894;
+        --brand-secondary: #5b7fff;
+        --accent-orange: #ff6b35;
+        --dark: #1a1a2e;
+        --ink: #2d3436;
+        --muted: #636e72;
+        --light-gray: #f7f9fc;
+        --border: #dfe6e9;
+        --success: #00b894;
+        --warning: #fdcb6e;
+        --danger: #d63031;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      @page {
+        size: A4;
+        margin: 0;
+      }
+
+      body {
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, sans-serif;
+        font-size: 11pt;
+        line-height: 1.6;
+        color: var(--ink);
+        background: white;
+      }
+
+      .page {
+        width: 210mm;
+        min-height: 297mm;
+        padding: 0;
+        margin: 0 auto;
+        background: white;
+        position: relative;
+      }
+
+      /* Header Band */
+      .header {
+        background: linear-gradient(135deg, var(--dark) 0%, #2d3436 100%);
+        padding: 32px 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 4px solid var(--brand-primary);
+      }
+
+      .logo-section {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .logo-box {
+        width: 60px;
+        height: 60px;
+        background: white;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 32px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      .brand-name {
+        color: white;
+        font-size: 18pt;
+        font-weight: 800;
+        letter-spacing: -0.5px;
+        line-height: 1.2;
+      }
+
+      .brand-name .highlight {
+        color: var(--brand-primary);
+      }
+
+      .confirmation-badge {
+        text-align: right;
+      }
+
+      .badge-label {
+        background: var(--brand-primary);
+        color: white;
+        padding: 8px 20px;
+        border-radius: 8px;
+        font-size: 12pt;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        display: inline-block;
+        margin-bottom: 8px;
+      }
+
+      .booking-id {
+        color: white;
+        font-size: 16pt;
+        font-weight: 800;
+        letter-spacing: 1px;
+      }
+
+      .generated-date {
+        color: #b2bec3;
+        font-size: 9pt;
+        margin-top: 6px;
+      }
+
+      /* Content Area */
+      .content {
+        padding: 32px 40px;
+      }
+
+      /* Hero Section - Two Column */
+      .hero-row {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 24px;
+        margin-bottom: 32px;
+      }
+
+      .card {
+        background: var(--light-gray);
+        border: 2px solid var(--border);
+        border-radius: 16px;
+        padding: 24px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: linear-gradient(
+          90deg,
+          var(--brand-primary),
+          var(--brand-secondary)
+        );
+      }
+
+      .card-title {
+        font-size: 11pt;
+        font-weight: 700;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .icon {
+        font-size: 16pt;
+      }
+
+      .event-date {
+        font-size: 20pt;
+        font-weight: 800;
+        color: var(--dark);
+        margin-bottom: 8px;
+        line-height: 1.2;
+      }
+
+      .event-time {
+        font-size: 13pt;
+        font-weight: 600;
+        color: var(--ink);
+        margin-bottom: 12px;
+      }
+
+      .event-type {
+        display: inline-block;
+        background: white;
+        padding: 6px 16px;
+        border-radius: 20px;
+        font-size: 10pt;
+        font-weight: 600;
+        color: var(--brand-secondary);
+        border: 2px solid var(--brand-secondary);
+        margin-bottom: 16px;
+      }
+
+      .venue-info {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 12px;
+        background: white;
+        border-radius: 10px;
+        margin-bottom: 12px;
+      }
+
+      .venue-icon {
+        font-size: 20pt;
+        color: var(--brand-primary);
+      }
+
+      .venue-details {
+        flex: 1;
+      }
+
+      .venue-name {
+        font-weight: 700;
+        font-size: 11pt;
+        color: var(--dark);
+        margin-bottom: 4px;
+      }
+
+      .venue-address {
+        font-size: 10pt;
+        color: var(--muted);
+        line-height: 1.5;
+      }
+
+      .audience-size {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 10pt;
+        color: var(--ink);
+        font-weight: 600;
+        padding: 8px;
+        background: white;
+        border-radius: 8px;
+      }
+
+      /* Amount Card */
+      .amount-card {
+        background: linear-gradient(
+          135deg,
+          var(--brand-primary) 0%,
+          #00a07b 100%
+        );
+        color: white;
+        text-align: center;
+      }
+
+      .amount-card::before {
+        background: rgba(255, 255, 255, 0.3);
+      }
+
+      .amount-card .card-title {
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      .price-amount {
+        font-size: 36pt;
+        font-weight: 900;
+        line-height: 1;
+        margin: 16px 0;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      .payment-status {
+        display: inline-block;
+        padding: 10px 20px;
+        border-radius: 25px;
+        font-size: 11pt;
+        font-weight: 700;
+        margin-top: 12px;
+      }
+
+      .status-pending {
+        background: var(--warning);
+        color: var(--dark);
+      }
+
+      .status-captured {
+        background: white;
+        color: var(--success);
+      }
+
+      .deposit-info {
+        font-size: 10pt;
+        margin-top: 12px;
+        opacity: 0.95;
+      }
+
+      /* People Section - Artist & Organizer */
+      .people-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        margin-bottom: 32px;
+      }
+
+      .person-card {
+        background: white;
+        border: 2px solid var(--border);
+        border-radius: 16px;
+        padding: 24px;
+        position: relative;
+      }
+
+      .person-header {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 16px;
+        padding-bottom: 16px;
+        border-bottom: 2px dashed var(--border);
+      }
+
+      .artist-photo {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid var(--brand-primary);
+        box-shadow: 0 4px 12px rgba(0, 184, 148, 0.3);
+      }
+
+      .artist-photo-placeholder {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: linear-gradient(
+          135deg,
+          var(--brand-primary),
+          var(--brand-secondary)
+        );
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 36px;
+        color: white;
+        font-weight: 800;
+        border: 4px solid white;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      .person-info {
+        flex: 1;
+      }
+
+      .person-name {
+        font-size: 14pt;
+        font-weight: 800;
+        color: var(--dark);
+        margin-bottom: 4px;
+      }
+
+      .person-role {
+        font-size: 9pt;
+        font-weight: 600;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .contact-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 0;
+        font-size: 10pt;
+      }
+
+      .contact-icon {
+        width: 32px;
+        height: 32px;
+        background: var(--light-gray);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14pt;
+        color: var(--brand-primary);
+      }
+
+      .contact-value {
+        font-weight: 600;
+        color: var(--ink);
+      }
+
+      .profile-link {
+        display: inline-block;
+        margin-top: 8px;
+        padding: 8px 16px;
+        background: var(--brand-primary);
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        font-size: 9pt;
+        font-weight: 700;
+        transition: all 0.2s;
+      }
+
+      /* Performance & Logistics */
+      .logistics-card {
+        background: white;
+        border: 2px solid var(--border);
+        border-radius: 16px;
+        padding: 24px;
+        margin-bottom: 24px;
+      }
+
+      .section-title {
+        font-size: 13pt;
+        font-weight: 800;
+        color: var(--dark);
+        margin-bottom: 20px;
+        padding-bottom: 12px;
+        border-bottom: 3px solid var(--brand-primary);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .info-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin-bottom: 20px;
+      }
+
+      .info-item {
+        padding: 12px;
+        background: var(--light-gray);
+        border-radius: 10px;
+      }
+
+      .info-label {
+        font-size: 9pt;
+        font-weight: 600;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+        margin-bottom: 6px;
+      }
+
+      .info-value {
+        font-size: 11pt;
+        font-weight: 700;
+        color: var(--dark);
+      }
+
+      .rider-list {
+        list-style: none;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        margin-top: 16px;
+      }
+
+      .rider-list li {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 12px;
+        background: var(--light-gray);
+        border-radius: 8px;
+        font-size: 10pt;
+      }
+
+      .rider-list li::before {
+        content: "✓";
+        width: 24px;
+        height: 24px;
+        background: var(--success);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 12pt;
+      }
+
+      /* Attachments & Notes */
+      .notes-section {
+        background: #fffbf0;
+        border: 2px solid #ffe066;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 24px;
+      }
+
+      .notes-title {
+        font-size: 11pt;
+        font-weight: 700;
+        color: var(--dark);
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .notes-content {
+        font-size: 10pt;
+        line-height: 1.7;
+        color: var(--ink);
+      }
+
+      .attachment-list {
+        list-style: none;
+        margin-top: 12px;
+      }
+
+      .attachment-list li {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px;
+        background: white;
+        border-radius: 6px;
+        margin-bottom: 6px;
+        font-size: 9pt;
+      }
+
+      /* Terms Snapshot */
+      .terms-card {
+        background: #f0f5ff;
+        border: 2px solid var(--brand-secondary);
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 24px;
+      }
+
+      .terms-title {
+        font-size: 12pt;
+        font-weight: 800;
+        color: var(--brand-secondary);
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .terms-item {
+        padding: 12px;
+        background: white;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        font-size: 10pt;
+      }
+
+      .terms-item strong {
+        color: var(--dark);
+        font-weight: 700;
+      }
+
+      .policy-link {
+        color: var(--brand-secondary);
+        text-decoration: none;
+        font-weight: 700;
+      }
+
+      .agreement-stamp {
+        margin-top: 16px;
+        padding: 16px;
+        background: white;
+        border-left: 4px solid var(--success);
+        border-radius: 8px;
+        font-size: 10pt;
+        font-weight: 600;
+        color: var(--ink);
+      }
+
+      .agreement-stamp .timestamp {
+        color: var(--muted);
+        font-weight: 400;
+        font-size: 9pt;
+      }
+
+      /* Verification Section */
+      .verification-row {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 24px;
+        align-items: center;
+        background: white;
+        border: 2px solid var(--border);
+        border-radius: 16px;
+        padding: 24px;
+        margin-bottom: 32px;
+      }
+
+      .verification-info h3 {
+        font-size: 13pt;
+        font-weight: 800;
+        color: var(--dark);
+        margin-bottom: 12px;
+      }
+
+      .verification-info p {
+        font-size: 10pt;
+        color: var(--muted);
+        line-height: 1.6;
+        margin-bottom: 8px;
+      }
+
+      .scan-instruction {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 16px;
+        background: var(--light-gray);
+        border-radius: 8px;
+        font-size: 10pt;
+        font-weight: 600;
+        color: var(--brand-primary);
+        margin-top: 12px;
+      }
+
+      .qr-container {
+        text-align: center;
+      }
+
+      .qr-code {
+        width: 140px;
+        height: 140px;
+        border: 4px solid var(--dark);
+        border-radius: 12px;
+        padding: 8px;
+        background: white;
+      }
+
+      .qr-label {
+        font-size: 9pt;
+        color: var(--muted);
+        margin-top: 8px;
+        font-weight: 600;
+      }
+
+      .signature-area {
+        margin-top: 20px;
+        padding: 20px;
+        background: var(--light-gray);
+        border-radius: 12px;
+        text-align: center;
+      }
+
+      .signature-label {
+        font-size: 10pt;
+        color: var(--muted);
+        margin-bottom: 40px;
+      }
+
+      .signature-line {
+        border-top: 2px solid var(--dark);
+        width: 300px;
+        margin: 0 auto 10px;
+      }
+
+      .signature-stamp {
+        font-size: 11pt;
+        font-weight: 700;
+        color: var(--brand-primary);
+      }
+
+      /* Footer */
+      .footer {
+        background: var(--dark);
+        padding: 24px 40px;
+        color: white;
+        text-align: center;
+      }
+
+      .footer-logo {
+        font-size: 16pt;
+        font-weight: 800;
+        margin-bottom: 12px;
+      }
+
+      .footer-logo .highlight {
+        color: var(--brand-primary);
+      }
+
+      .support-info {
+        font-size: 10pt;
+        margin-bottom: 8px;
+        opacity: 0.9;
+      }
+
+      .support-info strong {
+        color: var(--brand-primary);
+      }
+
+      .footer-disclaimer {
+        font-size: 8pt;
+        color: #b2bec3;
+        margin-top: 16px;
+        padding-top: 16px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      /* Print Styles */
+      @media print {
+        body {
+          margin: 0;
+          padding: 0;
+        }
+        .page {
+          margin: 0;
+          border: none;
+          box-shadow: none;
+        }
+        .no-print {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <!-- Header -->
+      <div class="header">
+        <div class="logo-section">
+          <div class="logo-box">🎤</div>
+          <div>
+            <div class="brand-name">
+              CONNECT<span class="highlight">ARTIST</span>
+            </div>
+          </div>
+        </div>
+        <div class="confirmation-badge">
+          <div class="badge-label">BOOKING CONFIRMATION</div>
+          <div class="booking-id">{{ bookingId }}</div>
+          <div class="generated-date">
+            Generated on: {{ generatedDate }} • GMT+05:30
+          </div>
+        </div>
+      </div>
+
+      <!-- Content -->
+      <div class="content">
+        <!-- Hero Section -->
+        <div class="hero-row">
+          <!-- Event Summary -->
+          <div class="card">
+            <div class="card-title">
+              <span class="icon">📅</span> EVENT DETAILS
+            </div>
+            <div class="event-date">{{ eventDate }}</div>
+            <div class="event-time">{{ startTime }} — {{ endTime }}</div>
+            <div class="event-type">{{ eventType }}</div>
+
+            <div class="venue-info">
+              <div class="venue-icon">📍</div>
+              <div class="venue-details">
+                <div class="venue-name">{{ venue }}</div>
+                <div class="venue-address">{{ venueAddress }}</div>
+              </div>
+            </div>
+
+            <div class="audience-size">
+              <span>👥</span>
+              <span
+                ><strong>{{ audienceSize }}</strong> Expected Attendees</span
+              >
+            </div>
+          </div>
+
+          <!-- Amount Card -->
+          <div class="card amount-card">
+            <div class="card-title">💰 BOOKING AMOUNT</div>
+            <div class="price-amount">₹{{ price }}</div>
+            <div class="payment-status {{ paymentStatusClass }}">
+              {{ paymentStatus }}
+            </div>
+            <div class="deposit-info">
+              {{#depositRequired}} Deposit: ₹{{ depositAmount }} • Due: {{
+              depositDueDate }} {{/depositRequired}} {{^depositRequired}} Full
+              payment required to confirm booking {{/depositRequired}}
+            </div>
+          </div>
+        </div>
+
+        <!-- Artist & Organizer -->
+        <div class="people-row">
+          <!-- Artist Card -->
+          <div class="person-card">
+            <div class="person-header">
+              {{#artistPhoto}}
+              <img
+                src="{{ artistPhoto }}"
+                alt="{{ artistName }}"
+                class="artist-photo"
+              />
+              {{/artistPhoto}} {{^artistPhoto}}
+              <div class="artist-photo-placeholder">{{ artistInitial }}</div>
+              {{/artistPhoto}}
+              <div class="person-info">
+                <div class="person-name">{{ artistName }}</div>
+                <div class="person-role">Artist • {{ artistGenre }}</div>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon">📞</div>
+              <div class="contact-value">{{ artistPhone }}</div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon">✉️</div>
+              <div class="contact-value">{{ artistEmail }}</div>
+            </div>
+
+            {{#artistProfileUrl}}
+            <a href="{{ artistProfileUrl }}" class="profile-link"
+              >View Artist Profile →</a
+            >
+            {{/artistProfileUrl}}
+          </div>
+
+          <!-- Organizer Card -->
+          <div class="person-card">
+            <div class="person-header">
+              <div class="artist-photo-placeholder">{{ organizerInitial }}</div>
+              <div class="person-info">
+                <div class="person-name">{{ organizerName }}</div>
+                <div class="person-role">Event Organizer</div>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon">📞</div>
+              <div class="contact-value">{{ organizerPhone }}</div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon">✉️</div>
+              <div class="contact-value">{{ organizerEmail }}</div>
+            </div>
+
+            {{#backupContact}}
+            <div class="contact-item">
+              <div class="contact-icon">🔁</div>
+              <div class="contact-value">Backup: {{ backupContact }}</div>
+            </div>
+            {{/backupContact}}
+          </div>
+        </div>
+
+        <!-- Performance & Logistics -->
+        <div class="logistics-card">
+          <div class="section-title">
+            <span>🎸</span> PERFORMANCE & LOGISTICS
+          </div>
+
+          <div class="info-grid">
+            <div class="info-item">
+              <div class="info-label">Load-in Time</div>
+              <div class="info-value">{{ loadInTime }}</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Soundcheck</div>
+              <div class="info-value">{{ soundcheckTime }}</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Performance</div>
+              <div class="info-value">
+                {{ numberOfSets }} Sets • {{ setDuration }} min
+              </div>
+            </div>
+          </div>
+
+          <div class="info-label" style="margin-top: 20px; margin-bottom: 12px">
+            TECHNICAL RIDER
+          </div>
+          <ul class="rider-list">
+            {{#technicalRider}}
+            <li>{{ . }}</li>
+            {{/technicalRider}}
+          </ul>
+
+          <div class="info-item" style="margin-top: 20px">
+            <div class="info-label">Travel & Accommodation</div>
+            <div class="info-value">{{ travelInfo }}</div>
+          </div>
+        </div>
+
+        <!-- Notes & Attachments -->
+        {{#notes}}
+        <div class="notes-section">
+          <div class="notes-title">📝 Additional Notes</div>
+          <div class="notes-content">{{ notes }}</div>
+
+          {{#attachments}}
+          <ul class="attachment-list">
+            {{#attachments}}
+            <li>📎 {{ . }}</li>
+            {{/attachments}}
+          </ul>
+          {{/attachments}}
+        </div>
+        {{/notes}}
+
+        <!-- Terms Snapshot -->
+        <div class="terms-card">
+          <div class="terms-title"><span>⚖️</span> KEY TERMS & AGREEMENT</div>
+
+          {{#depositAmount}}
+          <div class="terms-item">
+            <strong>Deposit:</strong> ₹{{ depositAmount }} due by {{
+            depositDueDate }}
+          </div>
+          {{/depositAmount}}
+
+          <div class="terms-item">
+            <strong>Cancellation:</strong> {{ cancellationSummary }}
+            <a
+              href="https://connectartist.example/refund.html"
+              class="policy-link"
+              >View Full Policy →</a
+            >
+          </div>
+
+          <div class="agreement-stamp">
+            ✅ Organizer accepted Terms & Conditions (v{{ termsVersion }})
+            <div class="timestamp">on {{ termsAcceptedAt }}</div>
+          </div>
+        </div>
+
+        <!-- Verification -->
+        <div class="verification-row">
+          <div class="verification-info">
+            <h3>🔐 Verify This Booking</h3>
+            <p>
+              Scan the QR code or visit our website to check real-time booking
+              status and view full details online.
+            </p>
+            <p><strong>Booking ID:</strong> {{ bookingId }}</p>
+            <div class="scan-instruction">
+              <span>📱</span> Scan to verify authenticity
+            </div>
+
+            <div class="signature-area">
+              <div class="signature-label">Digitally Signed By</div>
+              <div class="signature-line"></div>
+              <div class="signature-stamp">🔒 ConnectArtist Platform</div>
+            </div>
+          </div>
+
+          <div class="qr-container">
+            <img src="{{ qrCodeUrl }}" alt="Booking QR Code" class="qr-code" />
+            <div class="qr-label">Scan to View Online</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="footer">
+        <div class="footer-logo">
+          CONNECT<span class="highlight">ARTIST</span>
+        </div>
+        <div class="support-info">
+          <strong>Need help?</strong> Email: support@connectartist.com • Phone:
+          +91 11 2345 6789
+        </div>
+        <div class="support-info">
+          Available 24/7 for booking support and assistance
+        </div>
+        <div class="footer-disclaimer">
+          This is a system-generated document. Keep for your records. All
+          bookings are subject to Terms & Conditions available at
+          connectartist.com/terms
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

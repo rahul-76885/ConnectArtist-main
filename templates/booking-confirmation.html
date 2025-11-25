@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Booking Confirmation - {{bookingId}}</title>
+
+    <style>
+      /* Print safe CSS for A4 portrait */
+      @page {
+        size: A4;
+        margin: 18mm;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Inter, "Helvetica Neue", Arial, sans-serif;
+        color: #111;
+      }
+      .page {
+        width: 210mm;
+        min-height: 297mm;
+        box-sizing: border-box;
+        padding: 18mm;
+        background: #fff;
+      }
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .logo {
+        width: 86px;
+        height: 86px;
+        display: block;
+        border-radius: 8px;
+        object-fit: contain;
+        background: transparent;
+      }
+      .title {
+        font-size: 20px;
+        font-weight: 700;
+        letter-spacing: 0.2px;
+      }
+      .badge {
+        text-align: right;
+      }
+      .badge .id {
+        font-weight: 700;
+        font-size: 14px;
+        color: #0b57d0;
+      }
+      .badge .stamp {
+        font-size: 12px;
+        color: #666;
+        margin-top: 6px;
+      }
+      .qr {
+        width: 88px;
+        height: 88px;
+        border-radius: 6px;
+        overflow: hidden;
+        background: #fff;
+        display: inline-block;
+      }
+
+      .hero {
+        display: flex;
+        gap: 16px;
+        margin-top: 18px;
+      }
+      .left {
+        flex: 1;
+      }
+      .right {
+        width: 260px;
+        border-left: 1px solid #eee;
+        padding-left: 14px;
+      }
+
+      .card {
+        background: #f8fafb;
+        padding: 12px;
+        border-radius: 8px;
+        margin-bottom: 10px;
+      }
+      .big-price {
+        font-size: 28px;
+        font-weight: 800;
+        color: #1a73e8;
+      }
+      .muted {
+        color: #666;
+        font-size: 12px;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-top: 12px;
+      }
+      .profile {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+      }
+      .profile img {
+        width: 84px;
+        height: 84px;
+        border-radius: 8px;
+        object-fit: cover;
+      }
+      .profile .meta {
+        font-size: 13px;
+      }
+      .meta .name {
+        font-weight: 700;
+        font-size: 15px;
+      }
+      .meta .small {
+        color: #666;
+        font-size: 12px;
+        margin-top: 4px;
+      }
+
+      .section-title {
+        font-weight: 700;
+        margin: 8px 0;
+        font-size: 13px;
+      }
+      .two-col {
+        display: flex;
+        gap: 10px;
+      }
+      .key {
+        font-weight: 600;
+        color: #333;
+        font-size: 13px;
+      }
+      .val {
+        color: #222;
+        font-size: 13px;
+      }
+
+      .rider {
+        list-style: none;
+        padding-left: 0;
+        margin: 6px 0 0 0;
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .rider li {
+        background: #fff;
+        border: 1px solid #e6eefb;
+        padding: 8px 10px;
+        border-radius: 6px;
+        font-size: 12px;
+        color: #333;
+      }
+
+      .attachments {
+        margin-top: 8px;
+      }
+      .attachments a {
+        display: inline-block;
+        margin-right: 8px;
+        padding: 6px 8px;
+        border-radius: 6px;
+        background: #fff;
+        border: 1px dashed #ddd;
+        font-size: 12px;
+        color: #0b57d0;
+        text-decoration: none;
+      }
+
+      footer {
+        margin-top: 22px;
+        border-top: 1px solid #eee;
+        padding-top: 12px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .legal {
+        font-size: 11px;
+        color: #666;
+        max-width: 72%;
+      }
+      .support {
+        text-align: right;
+        font-size: 12px;
+      }
+
+      /* small screens (for preview) */
+      @media (max-width: 800px) {
+        .hero {
+          flex-direction: column;
+        }
+        .right {
+          border-left: none;
+          padding-left: 0;
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header>
+        <div class="brand">
+          <!-- logoUrl placeholder -->
+          <img class="logo" src="{{logoUrl}}" alt="ConnectArtist" />
+          <div>
+            <div class="title">Booking Confirmation</div>
+            <div class="muted">
+              ConnectArtist • Booking confirmation for your event
+            </div>
+          </div>
+        </div>
+
+        <div class="badge">
+          <div class="id">Booking ID: {{bookingId}}</div>
+          <div class="stamp">Generated: {{generatedAt}}</div>
+          <div style="margin-top: 8px">
+            <img class="qr" src="{{qrDataUri}}" alt="QR code" />
+          </div>
+        </div>
+      </header>
+
+      <div class="hero">
+        <div class="left">
+          <div class="card">
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+              "
+            >
+              <div>
+                <div style="font-size: 16px; font-weight: 700">
+                  {{event.type}}
+                </div>
+                <div class="muted" style="margin-top: 6px">
+                  {{event.formattedDate}} • {{event.startTime}} —
+                  {{event.endTime}}
+                </div>
+                <div style="margin-top: 10px; font-weight: 600">
+                  {{event.venue.formatted_address}}
+                </div>
+                <div class="muted" style="margin-top: 6px">
+                  {{event.venue.city}} • {{event.venue.postal_code}}
+                </div>
+              </div>
+
+              <div style="text-align: right">
+                <div class="big-price">₹{{payment.price}}</div>
+                <div class="muted" style="margin-top: 6px">
+                  {{payment.currency}} • {{payment.status}}
+                </div>
+                <div style="margin-top: 10px; font-size: 12px">
+                  Deposit: ₹{{payment.depositAmount}}
+                  {{#payment.depositRequired}}(required){{/payment.depositRequired}}{{^payment.depositRequired}}(not
+                  required){{/payment.depositRequired}}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid">
+            <div>
+              <div class="section-title">Artist</div>
+              <div class="profile card">
+                <img src="{{artist.photoUrl}}" alt="Artist photo" />
+                <div class="meta">
+                  <div class="name">{{artist.name}}</div>
+                  <div class="small">{{artist.genre}}</div>
+                  <div class="small" style="margin-top: 6px">
+                    Phone: {{artist.phone}} &nbsp; • &nbsp; Email:
+                    {{artist.email}}
+                  </div>
+                  <div style="margin-top: 6px">
+                    <a href="{{artist.profileUrl}}">{{artist.profileUrl}}</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <div class="section-title">Organizer</div>
+              <div class="card">
+                <div class="two-col">
+                  <div style="flex: 1">
+                    <div class="key">Name</div>
+                    <div class="val">{{organizer.name}}</div>
+                    <div style="height: 8px"></div>
+
+                    <div class="key">Phone</div>
+                    <div class="val">{{organizer.phone}}</div>
+
+                    <div class="key" style="margin-top: 8px">Email</div>
+                    <div class="val">{{organizer.email}}</div>
+                  </div>
+                  <div style="width: 120px">
+                    <div class="key">Backup</div>
+                    <div class="val">{{organizer.backup.name}}</div>
+                    <div class="muted" style="margin-top: 6px">
+                      {{organizer.backup.phone}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top: 12px" class="card">
+            <div class="section-title">Performance & Logistics</div>
+            <div style="display: flex; gap: 12px; flex-wrap: wrap">
+              <div>
+                <span class="key">Sets</span>
+                <div class="val">
+                  {{performance.sets}} × {{performance.setDurationMinutes}} min
+                </div>
+              </div>
+              <div>
+                <span class="key">Load-in</span>
+                <div class="val">{{performance.loadIn}}</div>
+              </div>
+              <div>
+                <span class="key">Soundcheck</span>
+                <div class="val">{{performance.soundcheck}}</div>
+              </div>
+              <div style="flex-basis: 100%"></div>
+              <div style="margin-top: 8px">
+                <span class="key">Stage</span>
+                <div class="val">{{performance.stageSize}}</div>
+              </div>
+              <div style="margin-top: 8px">
+                <span class="key">Audience</span>
+                <div class="val">{{event.audienceSize}}</div>
+              </div>
+            </div>
+
+            <div style="margin-top: 10px">
+              <div class="key">Technical Rider</div>
+              <ul class="rider">
+                {{#performance.rider}}
+                <li>{{.}}</li>
+                {{/performance.rider}}
+              </ul>
+            </div>
+          </div>
+
+          <div style="margin-top: 12px" class="card">
+            <div class="section-title">Attachments & Notes</div>
+            <div class="attachments">
+              {{#attachments}}
+              <a href="{{url}}">{{name}}</a>
+              {{/attachments}} {{^attachments}}
+              <div class="muted">No attachments provided.</div>
+              {{/attachments}}
+            </div>
+
+            <div style="margin-top: 10px">
+              <div class="key">Organizer Notes</div>
+              <div class="val">{{notes}}</div>
+            </div>
+          </div>
+        </div>
+
+        <aside class="right">
+          <div class="card">
+            <div class="section-title">Payment Summary</div>
+            <div style="display: flex; flex-direction: column; gap: 8px">
+              <div>
+                <span class="key">Total Fee</span>
+                <div class="val">₹{{payment.price}}</div>
+              </div>
+              <div>
+                <span class="key">Deposit</span>
+                <div class="val">₹{{payment.depositAmount}}</div>
+              </div>
+              <div>
+                <span class="key">Paid</span>
+                <div class="val">₹{{payment.paid}}</div>
+              </div>
+              <div>
+                <span class="key">Balance</span>
+                <div class="val">₹{{payment.balance}}</div>
+              </div>
+              <div>
+                <span class="key">Payment Status</span>
+                <div class="val">{{payment.status}}</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top: 12px" class="card">
+            <div class="section-title">Terms Snapshot</div>
+            <div class="muted">
+              By booking you accepted ConnectArtist Terms (v{{terms.version}})
+              on {{terms.acceptedAt}}.
+            </div>
+            <div style="margin-top: 8px" class="muted">
+              Cancellation: {{terms.cancellationShort}}
+            </div>
+          </div>
+
+          <div style="margin-top: 12px; text-align: center">
+            <img
+              src="{{brandBackgroundUrl}}"
+              alt="brand"
+              style="max-width: 100%; border-radius: 8px"
+            />
+          </div>
+        </aside>
+      </div>
+
+      <footer>
+        <div class="legal">
+          <div><strong>Keep this document for your records.</strong></div>
+          <div style="margin-top: 6px">
+            This confirmation is generated by ConnectArtist. For disputes
+            contact support@connectartist.example within 7 days.
+          </div>
+        </div>
+        <div class="support">
+          <div><strong>Support</strong></div>
+          <div style="margin-top: 6px">help@connectartist.example</div>
+          <div style="margin-top: 6px">+91 11 2345 6789</div>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

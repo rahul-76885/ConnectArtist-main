@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ConnectArtist — Artist Contact</title>
+  <style>
+    :root{
+      --bg1:#0e0a1a; --accent:#7c3aed; --accent2:#fb7185; --muted:#cfc7e9; --white:#fff;
+    }
+    html,body{ margin:0;padding:0;font-family: "Inter", Arial, sans-serif;background:linear-gradient(180deg,#0e0a1a,#241236); color:var(--muted); }
+    .page{ width:210mm; min-height:297mm; padding:28mm; box-sizing:border-box; }
+
+    .header{
+      display:flex;align-items:center;gap:14px;margin-bottom:14px;
+    }
+    .logoSmall{ width:66px;height:66px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent2)); display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:18px; }
+    .hdrText h1{ margin:0;color:var(--white); font-size:22px; letter-spacing:0.6px }
+    .hdrText p{ margin:4px 0 0 0;color:var(--muted); font-size:12px }
+
+    .card{ background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent); padding:18px; border-radius:12px; border:1px solid rgba(255,255,255,0.03); box-shadow:0 8px 30px rgba(2,6,23,0.4); }
+
+    .main {
+      display:flex; gap:18px; align-items:flex-start; margin-top:12px;
+    }
+
+    .photo {
+      width:200px;height:200px;border-radius:12px;border:1px solid rgba(255,255,255,0.04); overflow:hidden; background:#18121f;
+      flex:0 0 200px;
+    }
+    .photo img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+    .info{ flex:1; }
+    .info h2{ margin:0;color:var(--white); font-size:20px; }
+    .sub{ margin-top:6px;color:var(--muted); font-size:13px; }
+
+    .contactList{ display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin-top:14px; font-size:13px; }
+    .contactItem{ background:rgba(255,255,255,0.01); padding:10px;border-radius:8px; }
+    .contactItem .k{ color:var(--white); font-weight:700; font-size:12px; }
+    .contactItem .v{ color:var(--muted); margin-top:6px; display:block; }
+
+    .bio{
+      margin-top:12px; padding:12px; border-radius:8px; background:rgba(255,255,255,0.01); font-size:13px; color:var(--muted);
+    }
+
+    .downloadRow{ margin-top:16px; display:flex; gap:8px; align-items:center; }
+    .btn{
+      background:linear-gradient(90deg,var(--accent),var(--accent2)); color:white;padding:10px 14px;border-radius:10px;border:0;font-weight:700;text-decoration:none;
+      box-shadow:0 10px 28px rgba(124,58,237,0.16);
+    }
+    .muted{ color:var(--muted); font-size:12px; margin-top:10px; }
+
+    .footer{ margin-top:26px; border-top:1px dashed rgba(255,255,255,0.03); padding-top:12px; display:flex; justify-content:space-between; font-size:12px; color:var(--muted) }
+
+    @media (max-width:900px){
+      .main{ flex-direction:column; }
+      .photo{ width:140px;height:140px; }
+      .contactList{ grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="header">
+      <div class="logoSmall">CA</div>
+      <div class="hdrText">
+        <h1>WELCOME TO CONNECT ARTIST</h1>
+        <p>Artist contact card — easy to save & share</p>
+      </div>
+    </header>
+
+    <section class="card main">
+      <div class="photo">
+        <img src="{{artistPhotoUrl}}" alt="Artist photo" onerror="this.style.display='none'">
+      </div>
+
+      <div class="info">
+        <h2>{{artistName}}</h2>
+        <div class="sub">Profile: <a href="{{artistProfileUrl}}" style="color:var(--muted); text-decoration:none">{{artistProfileUrl}}</a></div>
+
+        <div class="contactList">
+          <div class="contactItem">
+            <div class="k">Phone</div>
+            <div class="v">{{artistPhone}}</div>
+          </div>
+          <div class="contactItem">
+            <div class="k">Email</div>
+            <div class="v">{{artistEmail}}</div>
+          </div>
+          <div class="contactItem">
+            <div class="k">Fee</div>
+            <div class="v">₹ {{artistFee}}</div>
+          </div>
+          <div class="contactItem">
+            <div class="k">Available From</div>
+            <div class="v">{{availableFrom}}</div>
+          </div>
+        </div>
+
+        <div class="bio">
+          <strong>About</strong>
+          <div style="margin-top:8px">{{artistBio}}</div>
+        </div>
+
+        <div class="downloadRow">
+          <a class="btn" href="{{downloadContactUrl}}">Download Contact PDF</a>
+          <a class="btn" href="{{downloadVcardUrl}}">Download vCard (.vcf)</a>
+        </div>
+
+        <div class="muted">Tip: Save the vCard to your phone to call or message quickly.</div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div>ConnectArtist • www.connectartist.in</div>
+      <div>Generated: {{generatedAt}}</div>
+    </footer>
+  </div>
+</body>
+</html>

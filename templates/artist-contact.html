@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Artist Contact Sheet - {{bookingId}}</title>
+    <style>
+      @page {
+        size: A4;
+        margin: 18mm;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Inter, "Helvetica Neue", Arial, sans-serif;
+        color: #111;
+      }
+      .page {
+        padding: 18mm;
+      }
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .brand {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+      }
+      .logo {
+        width: 72px;
+        height: 72px;
+        object-fit: contain;
+      }
+      .id {
+        font-weight: 700;
+        color: #ff6f00;
+      }
+      .muted {
+        color: #666;
+        font-size: 12px;
+      }
+
+      .main {
+        display: flex;
+        gap: 14px;
+        margin-top: 12px;
+      }
+      .photo {
+        width: 160px;
+        height: 160px;
+        border-radius: 8px;
+        overflow: hidden;
+      }
+      .photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .info {
+        flex: 1;
+      }
+      .row {
+        display: flex;
+        gap: 12px;
+        margin-top: 6px;
+      }
+      .col {
+        flex: 1;
+      }
+
+      .section {
+        background: #f7fbff;
+        padding: 10px;
+        border-radius: 8px;
+        margin-top: 12px;
+      }
+      .section .title {
+        font-weight: 700;
+        margin-bottom: 8px;
+        font-size: 13px;
+      }
+      .kv {
+        display: flex;
+        justify-content: space-between;
+        padding: 6px 0;
+        border-bottom: 1px dashed #e6eefb;
+        font-size: 13px;
+      }
+      .kv:last-child {
+        border-bottom: none;
+      }
+
+      .checklist {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+      }
+      .chip {
+        padding: 6px 8px;
+        border-radius: 6px;
+        background: #fff;
+        border: 1px solid #e9f0ff;
+        font-size: 12px;
+      }
+
+      footer {
+        margin-top: 18px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 1px solid #eee;
+        padding-top: 12px;
+        font-size: 12px;
+        color: #666;
+      }
+      .ack {
+        margin-top: 10px;
+        font-size: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header>
+        <div class="brand">
+          <img class="logo" src="{{logoUrl}}" alt="ConnectArtist" />
+          <div>
+            <div style="font-size: 18px; font-weight: 800">
+              Artist Itinerary & Contact
+            </div>
+            <div class="muted">
+              Booking ID: <span class="id">{{bookingId}}</span> • Generated
+              {{generatedAt}}
+            </div>
+          </div>
+        </div>
+
+        <div style="text-align: right">
+          <div class="muted">Event:</div>
+          <div style="font-weight: 700">
+            {{event.formattedDate}} • {{event.startTime}} — {{event.endTime}}
+          </div>
+          <div style="margin-top: 8px" class="muted">
+            {{event.venue.formatted_address}}
+          </div>
+        </div>
+      </header>
+
+      <div class="main">
+        <div class="photo">
+          <img src="{{artist.photoUrl}}" alt="Artist photo" />
+        </div>
+        <div class="info">
+          <div style="font-size: 16px; font-weight: 800">{{artist.name}}</div>
+          <div class="muted" style="margin-top: 6px">{{artist.genre}}</div>
+
+          <div class="row">
+            <div class="col">
+              <div><strong>Organizer</strong></div>
+              <div class="muted">{{organizer.name}}</div>
+              <div style="margin-top: 6px">Phone: {{organizer.phone}}</div>
+              <div>Email: {{organizer.email}}</div>
+              <div style="margin-top: 6px">
+                Backup: {{organizer.backup.name}} • {{organizer.backup.phone}}
+              </div>
+            </div>
+
+            <div class="col">
+              <div><strong>Venue Contact</strong></div>
+              <div class="muted">{{venueManager.name}}</div>
+              <div style="margin-top: 6px">{{venueManager.phone}}</div>
+              <div style="margin-top: 8px"><strong>Audience</strong></div>
+              <div class="muted">{{event.audienceSize}}</div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="title">Timings</div>
+            <div class="kv">
+              <div>Load-in</div>
+              <div>{{performance.loadIn}}</div>
+            </div>
+            <div class="kv">
+              <div>Soundcheck</div>
+              <div>{{performance.soundcheck}}</div>
+            </div>
+            <div class="kv">
+              <div>Performance slot</div>
+              <div>
+                {{event.startTime}} — {{event.endTime}} ({{performance.sets}}
+                sets)
+              </div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="title">Technical Rider (summary)</div>
+            <div class="checklist">
+              {{#performance.rider}}
+              <div class="chip">{{.}}</div>
+              {{/performance.rider}}
+            </div>
+            <div class="ack">
+              Stage size: {{performance.stageSize}} • Power:
+              {{performance.power}}
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="title">Travel & Accommodation</div>
+            <div class="kv">
+              <div>Responsibility</div>
+              <div>{{travel.responsibility}}</div>
+            </div>
+            <div class="kv">
+              <div>Details</div>
+              <div>{{travel.details}}</div>
+            </div>
+            <div style="margin-top: 8px" class="muted">
+              Pickup instructions: {{travel.pickup}}
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="title">Payment</div>
+            <div class="kv">
+              <div>Total Fee</div>
+              <div>₹{{payment.price}}</div>
+            </div>
+            <div class="kv">
+              <div>Deposit Paid</div>
+              <div>₹{{payment.paid}}</div>
+            </div>
+            <div class="kv">
+              <div>Balance</div>
+              <div>₹{{payment.balance}}</div>
+            </div>
+            <div style="margin-top: 8px" class="muted">
+              Expected payout date: {{payment.payoutDate}}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div>
+          <div><strong>Support</strong></div>
+          <div class="muted">help@connectartist.example • +91 11 2345 6789</div>
+        </div>
+        <div style="text-align: right">
+          <div><strong>Verify</strong></div>
+          <div class="muted">
+            Scan the booking QR or visit connectartist.in/verify/{{bookingId}}
+          </div>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
